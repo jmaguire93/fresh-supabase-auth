@@ -21,8 +21,8 @@ export const handler: Handlers = {
     if (user && !session) {
       // flag to remind user to verify email address
       return new Response(
-        "Please check your email to confirm your email address",
-        { status: 200 },
+        "Please check your email to sign in",
+        { status: 403 },
       );
     }
 
