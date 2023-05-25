@@ -4,6 +4,10 @@ import { User } from "supabase";
 
 import { redis } from "lib/redis.ts";
 
+interface Session {
+  user: User | null;
+}
+
 export type ServerState = {
   user: User | null;
   error: { code: number; msg: string } | null;
@@ -11,7 +15,7 @@ export type ServerState = {
 
 export async function handler(
   req: Request,
-  ctx: MiddlewareHandlerContext<ServerState>
+  ctx: MiddlewareHandlerContext<ServerState>,
 ) {
   const url = new URL(req.url);
   const cookies = getCookies(req.headers);
@@ -31,13 +35,13 @@ export async function handler(
   }
 
   if (access_token) {
-    const session = await redis.get(access_token);
+    const session = await redis.get(access_token) as Session;
 
     if (protected_route && !session) {
       return new Response(null, { headers, status: 303 });
     }
 
-    const user = JSON.parse(session!.toString())?.user;
+    const user = session?.user;
     ctx.state.user = user;
   }
 

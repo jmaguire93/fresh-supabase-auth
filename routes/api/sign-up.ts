@@ -22,7 +22,7 @@ export const handler: Handlers = {
       // flag to remind user to verify email address
       return new Response(
         "Please check your email to confirm your email address",
-        { status: 403 }
+        { status: 200 },
       );
     }
 

@@ -1,5 +1,4 @@
 // import { connect } from "redis";
-import { Redis } from "upstashRedis";
 
 // const REDIS_USER = Deno.env.get("REDIS_USER") || "";
 // const REDIS_PASSWORD = Deno.env.get("REDIS_PASSWORD") || "";
@@ -13,14 +12,16 @@ import { Redis } from "upstashRedis";
 //   port: REDIS_PORT,
 // });
 
-const UPSTASH_REDIS_REST_URL = Deno.env.get(
-  "UPSTASH_REDIS_REST_URL",
+import { Redis } from "upstashRedis";
+
+const UPSTASH_REDIS_URL = Deno.env.get(
+  "UPSTASH_REDIS_URL",
 ) || "";
-const UPSTASH_REDIS_REST_TOKEN = Deno.env.get(
-  "UPSTASH_REDIS_REST_TOKEN",
+const UPSTASH_REDIS_TOKEN = Deno.env.get(
+  "UPSTASH_REDIS_TOKEN",
 ) || "";
 
 export const redis = new Redis({
-  url: UPSTASH_REDIS_REST_URL,
-  token: UPSTASH_REDIS_REST_TOKEN,
+  url: UPSTASH_REDIS_URL,
+  token: UPSTASH_REDIS_TOKEN,
 });
