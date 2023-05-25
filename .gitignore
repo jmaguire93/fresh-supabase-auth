@@ -2,6 +2,7 @@
 **/.DS_Store
 *.env
 *.pem
+dump.rdb
 
 # debug
 npm-debug.log*

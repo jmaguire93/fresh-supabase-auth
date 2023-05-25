@@ -1,10 +1,5 @@
 import { connect } from "redis";
 
-// export const redis = await connect({
-//   hostname: "127.0.0.1",
-//   port: 6379,
-// });
-
 const REDIS_USER = Deno.env.get("REDIS_USER") || "";
 const REDIS_PASSWORD = Deno.env.get("REDIS_PASSWORD") || "";
 const REDIS_HOSTNAME = Deno.env.get("REDIS_HOSTNAME") || "";

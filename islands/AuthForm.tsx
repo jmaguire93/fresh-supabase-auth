@@ -1,4 +1,4 @@
-import { FormButton, Input, Link } from "components/index.ts";
+import { FormButton, Input } from "components/index.ts";
 import { useState } from "preact/hooks";
 
 type Props = {
@@ -22,12 +22,11 @@ export default function AuthForm({ mode }: Props) {
   const [password, setPassword] = useState<string>("");
   const buttonProps = mode === "In" ? signIn : signUp;
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [successMessage, setSuccessMessage] = useState<string>("");
   const [saving, setSaving] = useState<boolean>(false);
 
   const handleAuthASubmit = async (e) => {
-    setErrorMessage("");
     e.preventDefault();
+    setErrorMessage("");
     setSaving(true);
 
     try {
