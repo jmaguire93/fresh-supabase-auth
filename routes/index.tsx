@@ -1,7 +1,7 @@
 import { Layout, Link } from "components/index.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { ServerState } from "routes/_middleware.ts";
-import userHasProfile from "../utils/user/userHasProfile.tsx";
+import { userHasProfile } from "../utils/user/profile.tsx";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
@@ -28,7 +28,7 @@ export default function Home(props: PageProps<ServerState>) {
     <Layout state={props.data}>
       <p class="my-6 text-xl">
         {isLoggedIn
-          ? `Welcome ${user.email}, you are now signed in!`
+          ? `Welcome, you are now signed in!`
           : "Please sign in to continue."}
       </p>
 

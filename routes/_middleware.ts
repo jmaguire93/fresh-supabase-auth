@@ -21,12 +21,13 @@ export async function handler(
   const cookies = getCookies(req.headers);
   const access_token = cookies.auth;
 
-  const protected_route = url.pathname == "/profile";
+  const profile = url.pathname == "/profile";
+  const createProfile = url.pathname == "/create-profile";
 
   const headers = new Headers();
   headers.set("location", "/");
 
-  if (protected_route && !access_token) {
+  if ((profile || createProfile) && !access_token) {
     // Can't use 403 if we want to redirect to home page.
     return new Response("not authenticated for protected route!", {
       headers,
@@ -37,7 +38,7 @@ export async function handler(
   if (access_token) {
     const session = await redis.get(access_token) as Session;
 
-    if (protected_route && !session) {
+    if ((profile || createProfile) && !session) {
       return new Response(null, { headers, status: 303 });
     }
 

@@ -4,14 +4,13 @@ import { ServerState } from "../_middleware.ts";
 
 export const handler: Handlers = {
   async POST(req, ctx) {
-    const url = new URL(req.url);
     const { full_name, username } = await req.json();
     const headers = new Headers();
 
     const state = ctx.state as ServerState;
     const userId = state.user?.id;
-    const { data, error } = await supabase
-      .from("profile")
+    const { error } = await supabase
+      .from("profiles")
       .upsert({
         id: userId,
         username,

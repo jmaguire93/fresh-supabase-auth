@@ -23,7 +23,7 @@ export function Layout(props: Props) {
       </Head>
 
       <div class="bg-primary">
-        <nav class="flex items-center justify-between flex-wrap min-h-[80px] max-w-screen-md mx-auto">
+        <nav class="flex items-center justify-between flex-wrap min-h-[70px] max-w-screen-md mx-auto px-4 py-2">
           <a href="/">
             <div class="flex flex-shrink-0 border-white">
               <h1 class="ml-2 text-white">Copyfuse</h1>
