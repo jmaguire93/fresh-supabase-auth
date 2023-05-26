@@ -10,9 +10,9 @@ type Props = {
 };
 
 export function Layout(props: Props) {
-  const isAllowed = !!props.state.user;
+  const isLoggedIn = !!props.state.user;
 
-  const buttProps = isAllowed
+  const buttProps = isLoggedIn
     ? { href: "/api/sign-out", text: "Sign Out" }
     : { href: "/sign-in", text: "Sign In" };
 
@@ -23,7 +23,7 @@ export function Layout(props: Props) {
       </Head>
 
       <div class="bg-primary">
-        <nav class="flex items-center justify-between flex-wrap min-h-[65px] max-w-screen-md mx-auto">
+        <nav class="flex items-center justify-between flex-wrap min-h-[80px] max-w-screen-md mx-auto">
           <a href="/">
             <div class="flex flex-shrink-0 border-white">
               <h1 class="ml-2 text-white">Copyfuse</h1>
@@ -32,10 +32,9 @@ export function Layout(props: Props) {
 
           <div class="flex flex-grow border-gray pt-1">
             <div class="flex flex-grow">
-              <NavLink href="/secret">Secret</NavLink>
+              {isLoggedIn && <NavLink href="/profile">Profile</NavLink>}
             </div>
             <div class="flex sm:flex-shrink-0">
-              <NavLink href="/sign-up">Sign Up</NavLink>
               <NavButton href={buttProps.href}>{buttProps.text}</NavButton>
             </div>
           </div>

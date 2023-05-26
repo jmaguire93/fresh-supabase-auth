@@ -4,28 +4,30 @@
 
 import config from "./deno.json" assert { type: "json" };
 import * as $0 from "./routes/_middleware.ts";
-import * as $1 from "./routes/api/sign-in.tsx";
-import * as $2 from "./routes/api/sign-out.tsx";
-import * as $3 from "./routes/api/sign-up.ts";
+import * as $1 from "./routes/api/sign-in-confirm.tsx";
+import * as $2 from "./routes/api/sign-in.tsx";
+import * as $3 from "./routes/api/sign-out.tsx";
 import * as $4 from "./routes/index.tsx";
-import * as $5 from "./routes/secret.tsx";
-import * as $6 from "./routes/sign-in.tsx";
-import * as $7 from "./routes/sign-up.tsx";
+import * as $5 from "./routes/profile.tsx";
+import * as $6 from "./routes/sign-in-confirm.tsx";
+import * as $7 from "./routes/sign-in.tsx";
 import * as $$0 from "./islands/AuthForm.tsx";
+import * as $$1 from "./islands/SignInConfirm.tsx";
 
 const manifest = {
   routes: {
     "./routes/_middleware.ts": $0,
-    "./routes/api/sign-in.tsx": $1,
-    "./routes/api/sign-out.tsx": $2,
-    "./routes/api/sign-up.ts": $3,
+    "./routes/api/sign-in-confirm.tsx": $1,
+    "./routes/api/sign-in.tsx": $2,
+    "./routes/api/sign-out.tsx": $3,
     "./routes/index.tsx": $4,
-    "./routes/secret.tsx": $5,
-    "./routes/sign-in.tsx": $6,
-    "./routes/sign-up.tsx": $7,
+    "./routes/profile.tsx": $5,
+    "./routes/sign-in-confirm.tsx": $6,
+    "./routes/sign-in.tsx": $7,
   },
   islands: {
     "./islands/AuthForm.tsx": $$0,
+    "./islands/SignInConfirm.tsx": $$1,
   },
   baseUrl: import.meta.url,
   config,

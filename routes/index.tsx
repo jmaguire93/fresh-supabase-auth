@@ -1,8 +1,5 @@
-import { Head } from "$fresh/runtime.ts";
 import { Layout, Link } from "components/index.ts";
-import AuthForm from "islands/AuthForm.tsx";
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { getCookies } from "std/http/cookie.ts";
 import { ServerState } from "routes/_middleware.ts";
 
 export const handler: Handlers = {
@@ -12,17 +9,20 @@ export const handler: Handlers = {
 };
 
 export default function Home(props: PageProps<ServerState>) {
-  const isAllowed = !!props.data.user;
+  const user = props.data.user;
+  const isLoggedIn = !!user;
 
   return (
     <Layout state={props.data}>
-      <p class="my-6">You are currently {!isAllowed && "not"} signed in.</p>
+      <p class="my-6 text-xl">
+        {isLoggedIn
+          ? `Welcome ${user.email}, you are now signed in!`
+          : "Please sign in to continue."}
+      </p>
 
-      {!isAllowed ? (
-        <Link href="/sign-in">Sign In</Link>
-      ) : (
-        <Link href="/api/sign-out">Sign Out</Link>
-      )}
+      {!isLoggedIn
+        ? <Link href="/sign-in">Sign In</Link>
+        : <Link href="/api/sign-out">Sign Out</Link>}
     </Layout>
   );
 }

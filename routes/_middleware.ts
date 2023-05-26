@@ -21,7 +21,7 @@ export async function handler(
   const cookies = getCookies(req.headers);
   const access_token = cookies.auth;
 
-  const protected_route = url.pathname == "/secret";
+  const protected_route = url.pathname == "/profile";
 
   const headers = new Headers();
   headers.set("location", "/");

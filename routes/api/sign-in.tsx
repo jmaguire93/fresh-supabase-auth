@@ -5,40 +5,31 @@ import { supabase } from "lib/supabase.ts";
 export const handler: Handlers = {
   async POST(req) {
     const url = new URL(req.url);
-    const { email, password } = await req.json();
+    const { email } = await req.json();
     const headers = new Headers();
 
-    const {
-      data: { user, session },
-      error,
-    } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    const { error } = await supabase.auth
+      .signInWithOtp({
+        email: email,
+        options: {
+          emailRedirectTo: url.origin + "/",
+        },
+      });
 
     if (error) {
       return new Response(error.message, { status: error.status });
     }
 
-    if (user === null) {
-      return new Response("No user found", { status: 403 });
-    }
-
-    if (session == null) {
-      return new Response("No session found", { status: 403 });
-    }
-
     setCookie(headers, {
       name: "auth",
-      value: session.access_token,
-      maxAge: session.expires_in,
+      value: email,
       sameSite: "Lax",
       domain: url.hostname,
       path: "/",
       secure: true,
     });
 
-    headers.set("location", "/");
+    headers.set("location", "/sign-in-confirm");
 
     return new Response(null, { status: 303, headers });
   },

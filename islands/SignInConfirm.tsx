@@ -1,39 +1,34 @@
 import { FormButton, Input } from "components/index.ts";
 import { useState } from "preact/hooks";
 
-export default function AuthForm() {
-  const signIn = {
-    title: "Sign In",
-    href: "/sign-in",
-  };
-
-  const [email, setEmail] = useState<string>("");
+export default function SignInConfirm() {
+  const [code, setCode] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [saving, setSaving] = useState<boolean>(false);
+
+  const signInConfirm = {
+    title: "Sign In",
+    href: "/sign-in-confirm",
+  };
 
   const handleAuthASubmit = async (e: Event) => {
     e.preventDefault();
     setErrorMessage("");
-
-    if (!email) {
-      return;
-    }
-
     setSaving(true);
 
     try {
-      const response = await fetch("/api" + signIn.href, {
+      const response = await fetch("/api" + signInConfirm.href, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ code }),
         credentials: "same-origin",
       });
 
       if (response.ok) {
         setSaving(false);
-        window.location.href = "/sign-in-confirm";
+        window.location.href = "/";
       } else {
         const responseMessage = await response.text();
         setErrorMessage(responseMessage);
@@ -49,29 +44,29 @@ export default function AuthForm() {
   return (
     <div class="items-stretch min-w-0">
       <div class="flex justify-center">
-        <h2 class="my-4">{signIn.title}</h2>
+        <h2 class="my-4">{signInConfirm.title}</h2>
       </div>
       <div class="text-center mb-4">
-        Please enter your email to generate a code to sign in with
+        Please check your email and enter the code that has been sent
       </div>
       <form method="post" class=" space-y-4" onSubmit={handleAuthASubmit}>
         <Input
           autofocus
           disabled={saving}
-          type="email"
-          name="email"
-          value={email}
+          type="text"
+          name="code"
+          value={code}
           onChange={(e: Event) => {
             const target = e?.target as HTMLInputElement;
-            setEmail(target.value);
+            setCode(target.value);
           }}
         />
         <FormButton disabled={saving} type="submit" class="!mt-4">
-          Send
+          {signInConfirm.title}
         </FormButton>
       </form>
       {errorMessage && (
-        <div class="text-error my-4 text-center">{errorMessage}.</div>
+        <div class="text-error my-4 text-center">{errorMessage}!</div>
       )}
     </div>
   );
