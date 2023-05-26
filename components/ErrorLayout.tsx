@@ -1,9 +1,6 @@
 import { Head } from "$fresh/runtime.ts";
 import { ComponentChildren } from "preact";
 
-import { ServerState } from "routes/_middleware.ts";
-import { NavButton, NavLink } from "components/index.ts";
-
 type Props = {
   children: ComponentChildren;
 };
