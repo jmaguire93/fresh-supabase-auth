@@ -1,13 +1,19 @@
 import { FormButton, Input } from "components/index.ts";
 import { useState } from "preact/hooks";
 
-export default function AuthForm() {
+interface Props {
+  onStepComplete: () => void;
+  email: string;
+  setEmail: (value: string) => void;
+}
+
+export default function AuthForm(props: Props) {
+  const { onStepComplete, email, setEmail } = props;
   const signIn = {
-    title: "Sign In",
+    title: "copyfuse",
     href: "/sign-in",
   };
 
-  const [email, setEmail] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [saving, setSaving] = useState<boolean>(false);
 
@@ -33,7 +39,7 @@ export default function AuthForm() {
 
       if (response.ok) {
         setSaving(false);
-        window.location.href = "/sign-in-confirm";
+        onStepComplete();
       } else {
         const responseMessage = await response.text();
         setErrorMessage(responseMessage);
@@ -49,10 +55,13 @@ export default function AuthForm() {
   return (
     <div class="items-stretch min-w-0">
       <div class="flex justify-center">
-        <h2 class="my-4">{signIn.title}</h2>
+        <h2 class="my-4">
+          copy<span class="font-extrabold">fuse</span>
+        </h2>
       </div>
       <div class="text-center mb-4">
-        Please enter your email to generate a code to sign in with
+        Enter your email address below and we will send you a code to sign in
+        with.
       </div>
       <form method="post" class=" space-y-4" onSubmit={handleAuthASubmit}>
         <Input

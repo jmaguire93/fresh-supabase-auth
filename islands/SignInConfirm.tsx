@@ -1,10 +1,16 @@
 import { FormButton, Input } from "components/index.ts";
 import { useState } from "preact/hooks";
 
-export default function SignInConfirm() {
+interface Props {
+  onSignInComplete: () => void;
+  email: string;
+}
+
+export default function SignInConfirm(props: Props) {
   const [code, setCode] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [saving, setSaving] = useState<boolean>(false);
+  const { onSignInComplete, email } = props;
 
   const signInConfirm = {
     title: "Sign In",
@@ -28,6 +34,7 @@ export default function SignInConfirm() {
 
       if (response.ok) {
         setSaving(false);
+        // onSignInComplete();
         window.location.href = "/";
       } else {
         const responseMessage = await response.text();
@@ -44,10 +51,14 @@ export default function SignInConfirm() {
   return (
     <div class="items-stretch min-w-0">
       <div class="flex justify-center">
-        <h2 class="my-4">{signInConfirm.title}</h2>
+        <h2 class="my-4 font-medium">
+          copy<span class="font-extrabold">fuse</span>
+        </h2>
       </div>
       <div class="text-center mb-4">
-        Please check your email and enter the code that has been sent
+        We sent a confirmation code to <strong>{email}</strong>.
+        <br />
+        Please enter it below to continue.
       </div>
       <form method="post" class=" space-y-4" onSubmit={handleAuthASubmit}>
         <Input

@@ -6,3 +6,4 @@ export { Layout } from "components/Layout.tsx";
 export { ErrorLayout } from "components/ErrorLayout.tsx";
 export { Link } from "components/Link.tsx";
 export { NavLink } from "components/NavLink.tsx";
+export { Dialog } from "components/Dialog.tsx";
